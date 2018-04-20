@@ -8,7 +8,7 @@
 }
 .swiper {
   height: 430rpx;
-  border-radius:10px;
+  border-radius: 10px;
   background: white;
   margin: 8px;
 }
@@ -29,7 +29,7 @@
 // }
 .swiper-item {
   position: relative;
-  border-radius:10px;
+  border-radius: 10px;
 }
 .title_en {
   position: absolute;
@@ -108,12 +108,15 @@
      </view>
      <view class="swiperarea">
         <swiper indicator-dots="true" indicator-color="#fff" class='swiper' autoplay>
-          <repeat for="{{swiperObjects}}">
+          <!-- <repeat for="{{swiperObjects}}">
             <swiper-item class="swiper-item">
-              <!-- <text class="title_en">{{item.title_en}}</text> -->
               <image src="{{item.thumbnail_urls[0]}}" class="slide-image" mode='scaleToFill' @tap="tap({{item.id}})"/>
             </swiper-item>
-          </repeat>
+          </repeat> -->
+            <swiper-item class="swiper-item">
+              <!-- <text class="title_en">{{item.title_en}}</text> -->
+              <image src="../assets/banner1.jpg" class="slide-image" mode='scaleToFill' @tap="tap({123})"/>
+            </swiper-item>
         </swiper>
       </view>
 
