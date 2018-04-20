@@ -40,7 +40,7 @@
 <template>
 <view class="latest-hot">
     <view class="latest-hot-title">
-      <image src="//mat1.gtimg.com/www/mobi/2017/image/section-title-24hours.svg"></image>
+      <image src="../assets/section-title-24hours.svg"></image>
     </view>
     <view class="latest-hot-content">
         <view>
