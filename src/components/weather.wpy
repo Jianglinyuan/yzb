@@ -1,0 +1,114 @@
+<style lang="less">
+.weather {
+  display: block;
+  position: relative;
+  height: 68px;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 15px;
+  padding-left: 15px;
+  background: #fff;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  box-sizing: content-box;
+  margin-top: 10px;
+
+  .weahter-left-rap {
+    height: 32px;
+
+    .weather-degree {
+      display: inline-block;
+      vertical-align: top;
+      margin-left: 7px;
+      font-size: 32px;
+      line-height: 32px;
+      color: #3f4146;
+    }
+
+    .weather-logo {
+      display: inline-block;
+      vertical-align: top;
+      margin-left: 6px;
+      margin-top: 6px;
+      width: 24px;
+      height: 24px;
+      background-size: auto 100%;
+      background-repeat: no-repeat;
+      background: url(//mat1.gtimg.com/pingjs/ext2020/weather/mobile2.0/assets/weather/day/01.svg);
+    }
+
+    .weather-text {
+      display: inline-block;
+      vertical-align: top;
+      margin-left: 5px;
+      margin-top: 7px;
+      font-size: 17px;
+      color: #3f4146;
+    }
+
+    .weather-air {
+      display: inline-block;
+      vertical-align: top;
+      height: 16px;
+      line-height: 16px;
+      margin: 11px 0 0 10px;
+      padding: 0 7px;
+      font-size: 11px;
+      color: #ffffff;
+      border-radius: 2px;
+      background-color: rgb(240, 209, 4);
+    }
+  }
+
+  .weather-bottom {
+    text {
+      height: 22px;
+      line-height: 22px;
+      padding-left: 7px;
+      font-size: 13px;
+      color: #888888;
+      margin-right: 5px;
+    }
+  }
+
+  .weather-location {
+    position: absolute;
+    right: 15px;
+    top: 24px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    color: #3F4146;
+    background-image:url('data:image/svg+xml;utf8,<svg width="10" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M5 7.034c-1.11 0-2.01-.926-2.01-2.067 0-1.142.9-2.068 2.01-2.068 1.11 0 2.01.926 2.01 2.068 0 1.141-.9 2.067-2.01 2.067m3.535-5.528a4.902 4.902 0 0 0-7.07 0c-1.953 2.008-1.953 5.264 0 7.272l2.848 2.93c.38.39.995.39 1.374 0l2.848-2.93c1.953-2.008 1.953-5.264 0-7.272" fill="%239B9EA3" fill-rule="evenodd"/></svg>');
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-left: 15px;
+  }
+}
+</style>
+
+<template>
+    <view class="weather" >
+        <view class="weahter-left-rap">
+          <view class="weather-degree">23°</view>
+          <view class="weather-logo" ></view>
+          <view class="weather-text" >多云</view>
+          <view class="weather-air" >良</view>
+        </view>
+
+        <view class="weather-bottom" >
+            <text>今天</text>
+            <text>阵雨转多云</text>
+        </view>
+
+        <view class="weather-location">
+            永州
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from "wepy";
+
+export default class Weather extends wepy.component {}
+</script>

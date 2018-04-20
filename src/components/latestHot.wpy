@@ -1,0 +1,58 @@
+<style lang="less">
+.latest-hot {
+  background: white;
+  margin-top: 10px;
+}
+
+.latest-hot-title {
+  height: 30px;
+  line-height: 30px;
+  margin-top: 10px;
+  margin-left: 10px;
+
+  image {
+    height: 17px;
+    width: 111px;
+  }
+}
+
+.latest-hot-content {
+  display: flex;
+  align-items: center;
+  height: 90px;
+
+  image {
+    width: 40px;
+    height: 40px;
+    margin: 10px 10px 10px 20px;
+    border-radius: 50%;
+  }
+
+  text {
+    font-size: 15px;
+    word-wrap: break-word;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    color: #666;
+  }
+}
+</style>
+<template>
+<view class="latest-hot">
+    <view class="latest-hot-title">
+      <image src="//mat1.gtimg.com/www/mobi/2017/image/section-title-24hours.svg"></image>
+    </view>
+    <view class="latest-hot-content">
+        <view>
+          <image mode="scaleToFill" src="https://img.huxiucdn.com/auth/data/avatar/001/33/78/39_1501029363.jpg"></image>
+        </view>
+        <text>我就测试一下啦,好像最近发生的事情还挺多的,比如特朗普这个哥们老师瞎比比!!!</text>
+    </view>
+</view>
+</template>
+
+<script>
+import wepy from "wepy";
+
+export default class LatestHot extends wepy.component {}
+</script>

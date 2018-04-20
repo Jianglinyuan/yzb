@@ -4,25 +4,32 @@
 }
 .swiperarea {
   width: 100%;
+  background: white;
 }
-.swiper{
-  height:400rpx;
+.swiper {
+  height: 430rpx;
+  border-radius:10px;
+  background: white;
+  margin: 8px;
 }
 .slide-image {
   width: 100%;
-  height: 100%;
+  height: 430rpx;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.02);
 }
-.slide-image:after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  color: #fff;
-  padding: 50px 20px;
-  background-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7));
-}
+// .slide-image:after {
+//   content: "";
+//   position: absolute;
+//   bottom: 0;
+//   width: 100%;
+//   color: #fff;
+//   padding: 50px 20px;
+//   background-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7));
+// }
 .swiper-item {
   position: relative;
+  border-radius:10px;
 }
 .title_en {
   position: absolute;
@@ -39,48 +46,106 @@
 }
 .cards-area {
   width: 100%;
-  .date{
+  .date {
     color: #666;
     text-align: center;
     margin-bottom: 10rpx;
-    opacity: .8;
-    &:before{
+    opacity: 0.8;
+    &:before {
       position: absolute;
       content: "————";
-      left:450rpx;
-      right:0;
+      left: 450rpx;
+      right: 0;
     }
-    &:after{
+    &:after {
       position: absolute;
       content: "————";
-      left:0;
-      right:450rpx;
+      left: 0;
+      right: 450rpx;
     }
   }
 }
-.info{
-  color:gray;
-  opacity:.8;
+.info {
+  color: gray;
+  opacity: 0.8;
   margin-bottom: 20rpx;
-  &.loading{
+  &.loading {
     width: 70rpx;
     height: 70rpx;
   }
 }
 
+.top-header {
+  width: 100%;
+  height: 100%;
+  background: white;
+}
+
+.menu-pic {
+  height: 28px;
+  width: 28px;
+}
+
+.menu-item {
+  font-size: 11px;
+  color: #666;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  width: 100%;
+  height: 60px;
+  box-shadow: 0 5px 13px rgba(0, 0, 0, 0.1);
+}
 </style>
 <template>
   <view class="container">
+     <view class="top-header">
+       <!-- <header></header> -->
+     </view>
      <view class="swiperarea">
         <swiper indicator-dots="true" indicator-color="#fff" class='swiper' autoplay>
           <repeat for="{{swiperObjects}}">
             <swiper-item class="swiper-item">
-              <text class="title_en">{{item.title_en}}</text>
-              <image src="{{item.thumbnail_urls[0]}}" class="slide-image" mode='widthFix' @tap="tap({{item.id}})"/>
+              <!-- <text class="title_en">{{item.title_en}}</text> -->
+              <image src="{{item.thumbnail_urls[0]}}" class="slide-image" mode='scaleToFill' @tap="tap({{item.id}})"/>
             </swiper-item>
           </repeat>
         </swiper>
       </view>
+
+      <view class="menu">
+        <view class="menu-item">
+          <image src="../assets/news.svg" class="menu-pic"></image>
+          <text>新闻</text>
+        </view>
+        <view class="menu-item">
+          <image src="../assets/work.svg" class="menu-pic"></image>
+          <text>招聘</text>
+        </view>
+        <view class="menu-item">
+          <image src="../assets/home.svg" class="menu-pic"></image>
+          <text>房产</text>
+        </view>
+        <view class="menu-item">
+          <image src="../assets/student.svg" class="menu-pic"></image>
+          <text>同学</text>
+        </view>
+      </view>
+
+
+      <!-- 永州天气 -->
+      <weather />
+
+      <!-- 最近24小时热门 -->
+      <latesthot />
+
       <view class="line"></view>
       <view class="cards-area">
         <repeat for="{{detail.objects}}" >
@@ -96,77 +161,87 @@
 </template>
 
 <script>
-import wepy from 'wepy'
-import Card from '../components/card'
+import wepy from "wepy";
+import Card from "../components/card";
+import Header from "../components/header";
+import LatestHot from "../components/latestHot";
+import Weather from "../components/weather";
 
 export default class Index extends wepy.page {
   config = {
-    navigationBarTitleText: 'News Lite',
     window: {
       enablePullDownRefresh: true
     }
-  }
+  };
   components = {
-    card: Card
-  }
+    card: Card,
+    header: Header,
+    latesthot: LatestHot,
+    weather: Weather
+  };
   data = {
     detail: {
       objects: []
     },
     isLoadingMore: false,
     currentPage: 1,
-    info: ''
-  }
-  computed={
+    info: ""
+  };
+  computed = {
     swiperObjects() {
-      return this.data.detail.objects.slice(0, 5) // 轮播图只取5个，要不然太多了
+      return this.data.detail.objects.slice(0, 5); // 轮播图只取5个，要不然太多了
     }
-  }
-  methods={
+  };
+  methods = {
     tap(id) {
       wx.navigateTo({
-        url: `/pages/article?id=${id}`  // 打开一个新的同路由页面，但指定不同的数据初始值
-      })
+        url: `/pages/article?id=${id}` // 打开一个新的同路由页面，但指定不同的数据初始值
+      });
     }
-  }
+  };
   onLoad() {
     wx.showLoading({
-      title: '加载中'
-    })
-    this.loadList()
+      title: "加载中"
+    });
+    this.loadList();
   }
   onPullDownRefresh() {
-    console.log(1)
-    wx.stopPullDownRefresh()
+    console.log(1);
+    wx.stopPullDownRefresh();
   }
   onReachBottom() {
-    this.currentPage++
-    if (this.currentPage >= 10) { // 最多只能加载10页
-      this.isLoadingMore = false
-      this.info = 'No more news'
-      this.$apply()
-      return
+    this.currentPage++;
+    if (this.currentPage >= 10) {
+      // 最多只能加载10页
+      this.isLoadingMore = false;
+      this.info = "No more news";
+      this.$apply();
+      return;
     }
-    this.isLoadingMore = true
-    this.loadList()
+    this.isLoadingMore = true;
+    this.loadList();
   }
   onShareAppMessage() {
     return {
-      title: 'News Lite',
-      path: '/pages/index'
-    }
+      title: "News Lite",
+      path: "/pages/index"
+    };
   }
   loadList() {
     wx.request({
-      url: `https://www.shanbay.com/api/v2/news/articles/?ipp=10&page=${this.currentPage}`,
-      success: (res) => {
-        if (res.data.msg === 'SUCCESS') {
-          this.detail.objects = this.detail.objects.concat(res.data.data.objects)
+      url: `https://www.shanbay.com/api/v2/news/articles/?ipp=10&page=${
+        this.currentPage
+      }`,
+      success: res => {
+        if (res.data.msg === "SUCCESS") {
+          this.detail.objects = this.detail.objects.concat(
+            res.data.data.objects
+          );
         }
-        this.$apply()
-        wx.hideLoading()
+        this.$apply();
+        wx.hideLoading();
       }
-    })
+    });
   }
 }
 </script>
